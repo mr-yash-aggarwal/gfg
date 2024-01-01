@@ -35,27 +35,26 @@ class GFG {
 
 // User function Template for Java
 
+
 class Solution {
     public boolean canPair(int[] nums, int k) {
-
-        if(nums.length%2!=0) return false;
-        
-        HashMap<Integer,Integer> hm= new HashMap<>();
-        
-        for(int i=0;i<nums.length;i++){
-            
-            int rem=k-(nums[i]%k);
-            
-            if(hm.containsKey(rem)){
-                
-                if(hm.get(rem)==1) hm.remove(rem);
-                else hm.put(rem,hm.get(rem)-1);
+        // Code here
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int n = nums.length;
+        for(int  i = 0 ; i<n;i++)
+        {
+            map.put(nums[i]%k,map.getOrDefault(nums[i]%k,0)+ 1);
+        }
+        for(int i = 0; i < n;i++)
+        {
+            int k1 = nums[i]%k;
+            if(k1 == 0)
+            {
+                if(map.get(k1)%2== 1) return false;
                 
             }
-            else hm.put(nums[i]%k, hm.getOrDefault(nums[i]%k,0)+1);
+            else if(map.get(k1) != map.get(k - k1)) return false;
         }
-        
-        if(hm.size()==0 || (hm.size()==1 && hm.containsKey(0))) return true;
-        return false;
+        return true;
     }
 }
